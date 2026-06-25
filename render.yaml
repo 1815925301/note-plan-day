@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: note-plan-day
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: APP_PASSWORD
+        sync: false
+      - key: DATA_DIR
+        value: /data
+    disk:
+      name: note-data
+      mountPath: /data
+      sizeGB: 1

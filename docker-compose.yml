@@ -1,0 +1,15 @@
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - note-data:/data
+    environment:
+      - DATA_DIR=/data
+      - PORT=3000
+      - APP_PASSWORD=${APP_PASSWORD:-changeme}
+    restart: unless-stopped
+
+volumes:
+  note-data:
