@@ -8,7 +8,7 @@
 - **周视图**：以周为单位浏览，点击某天进入编辑，支持导出 Markdown
 - **月视图**：月历概览，有记录的日期会显示标记，支持导出 Markdown
 - **访问密码**：设置 `APP_PASSWORD` 后需登录才能访问
-- **数据持久化**：SQLite 存储，Docker 部署时挂载卷保存数据
+- **数据持久化**：SQLite 存储；本地 Docker 部署可挂载卷；Render 免费版重启后数据可能丢失（可用导出功能备份）
 
 ## 本地开发
 
@@ -51,27 +51,35 @@ APP_PASSWORD=your-password docker compose up -d --build
 
 访问 http://localhost:3000，数据保存在 Docker 卷 `note-data` 中。
 
-## 云端部署（Render）
+## 云端部署（Render 免费版，无需绑卡）
 
-### 第一步：推送到 GitHub
-
-```bash
-git init
-git add .
-git commit -m "Initial commit: work log app with auth and export"
-gh repo create note-plan-day --public --source=. --push
-```
-
-### 第二步：Render 部署
+### 方式一：Blueprint（推荐）
 
 1. 登录 [Render](https://render.com)
 2. **New → Blueprint**
-3. 连接 GitHub 仓库 `note-plan-day`
-4. Render 读取 `render.yaml` 自动创建服务
-5. 在 Dashboard 中为 `APP_PASSWORD` 设置访问密码
-6. 部署完成后访问 `https://note-plan-day.onrender.com`
+3. 连接 GitHub 仓库 `1815925301/note-plan-day`
+4. 设置环境变量 **`APP_PASSWORD`**（访问密码）
+5. 点击 **Apply** 部署
 
-> 免费实例 15 分钟无访问后会休眠，首次打开需等待约 30 秒唤醒。
+### 方式二：Web Service
+
+1. **New → Web Service**
+2. 选择仓库 `1815925301/note-plan-day`
+3. Runtime 选 **Docker**，Instance Type 选 **Free**
+4. 添加环境变量 **`APP_PASSWORD`**
+5. 点击 **Create Web Service**
+
+部署完成后访问 Render 提供的 `https://xxx.onrender.com` 地址。
+
+> **免费版限制**：15 分钟无访问会休眠（唤醒约 30 秒）；服务重启或重新部署后数据可能丢失，请定期用「导出」备份。
+
+修改配置后推送到 GitHub：
+
+```bash
+git add render.yaml
+git commit -m "Remove persistent disk for Render free tier"
+git push
+```
 
 ## 导出
 
