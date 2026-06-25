@@ -1,15 +1,19 @@
 {
   "name": "note-plan-day",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "install:all": "npm install --prefix server && npm install --prefix client",
-    "dev:server": "npm run dev --prefix server",
+    "install:all": "npm install && npm install --prefix client",
+    "dev": "vercel dev",
     "dev:client": "npm run dev --prefix client",
-    "build": "npm run build --prefix client",
-    "start": "npm start --prefix server",
-    "docker:build": "docker compose build",
-    "docker:up": "docker compose up -d",
-    "docker:down": "docker compose down"
+    "build": "npm run build --prefix client"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.1",
+    "jose": "^5.9.6"
+  },
+  "devDependencies": {
+    "vercel": "^41.4.0"
   }
 }

@@ -1,8 +1,8 @@
 node_modules/
 dist/
-server/data/
-*.db
-*.db-shm
-*.db-wal
+client/dist/
 .env
+.env.local
+.env*.local
+.vercel
 .DS_Store
