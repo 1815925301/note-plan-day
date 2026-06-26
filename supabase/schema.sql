@@ -11,4 +11,4 @@ CREATE INDEX IF NOT EXISTS idx_work_entries_date ON work_entries(date);
 
 ALTER TABLE work_entries ENABLE ROW LEVEL SECURITY;
 
--- 不创建公开策略：前端只通过 Vercel API 访问，API 使用 service_role 密钥
+-- 不创建公开策略：前端只通过 Netlify Functions 访问，API 使用 service_role 密钥

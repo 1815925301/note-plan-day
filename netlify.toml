@@ -1,0 +1,24 @@
+[build]
+  command = "npm run build --prefix client"
+  publish = "client/dist"
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+[dev]
+  command = "npm run dev --prefix client"
+  targetPort = 5173
+  port = 8888
+  publish = "client/dist"
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

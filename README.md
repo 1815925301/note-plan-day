@@ -1,6 +1,6 @@
 # 工作日志 · Note Plan Day
 
-记录每天的工作内容，支持按日 / 周 / 月查看。使用 **Vercel + Supabase** 部署，数据持久保存，免费可用。
+记录每天的工作内容，支持按日 / 周 / 月查看。使用 **Netlify + Supabase** 部署，数据持久保存，免费可用。
 
 ## 功能
 
@@ -12,8 +12,8 @@
 
 ## 技术栈
 
-- 前端：React + Vite（Vercel 托管）
-- API：Vercel Serverless Functions
+- 前端：React + Vite（Netlify 托管）
+- API：Netlify Functions
 - 数据库：Supabase PostgreSQL
 
 ---
@@ -38,34 +38,35 @@
 # 安装依赖
 npm run install:all
 
-# 复制环境变量
-cp .env.example .env.local
-# 编辑 .env.local，填入 Supabase 密钥和 APP_PASSWORD
+# 复制环境变量（Netlify CLI 会自动读取 .env）
+cp .env.example .env
+# 编辑 .env，填入 Supabase 密钥和 APP_PASSWORD
 
 # 启动（前端 + API 一起）
 npm run dev
 ```
 
-浏览器打开 http://localhost:3000
+浏览器打开 http://localhost:8888
 
 ---
 
-## 第三步：部署到 Vercel
+## 第三步：部署到 Netlify
 
 ### 1. 推送代码到 GitHub
 
 ```bash
 git add .
-git commit -m "Migrate to Vercel + Supabase"
+git commit -m "Migrate to Netlify + Supabase"
 git push origin main
 ```
 
-### 2. 连接 Vercel
+### 2. 连接 Netlify
 
-1. 打开 [https://vercel.com](https://vercel.com)，用 GitHub 登录
-2. **Add New → Project**
-3. 选择仓库 `1815925301/note-plan-day`
-4. 配置环境变量：
+1. 打开 [https://app.netlify.com](https://app.netlify.com)，用 GitHub 登录
+2. **Add new site → Import an existing project**
+3. 选择 GitHub 仓库
+4. 构建设置会自动从 [netlify.toml](netlify.toml) 读取，无需手动配置
+5. 进入 **Site configuration → Environment variables**，添加：
 
 | 变量 | 值 |
 |------|-----|
@@ -73,9 +74,9 @@ git push origin main
 | `SUPABASE_SERVICE_ROLE_KEY` | service_role 密钥 |
 | `APP_PASSWORD` | 你的访问密码 |
 
-5. 点击 **Deploy**
+6. 点击 **Deploy site**
 
-部署完成后获得 `https://xxx.vercel.app` 网址。
+部署完成后获得 `https://xxx.netlify.app` 网址。
 
 ---
 
